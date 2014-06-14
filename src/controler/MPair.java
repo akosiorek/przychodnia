@@ -1,6 +1,6 @@
 package controler;
 
-public class Pair<Key, Val> {
+public class MPair<Key, Val> {
 	public Key first;
 	public Val second;
 }

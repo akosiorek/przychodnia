@@ -4,15 +4,18 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 
 public class Pacjent extends JPanel {
 	public Pacjent() {
@@ -26,7 +29,6 @@ public class Pacjent extends JPanel {
 	private JButton Zatwierdz;
 	private JPanel pakietyPacjenta;
 	private JButton btnUsunPakiet;
-	private JList<String> listaPakietowPacjenta;
 	private JComboBox<String> listaPakietowDostepnych;
 	private JButton btnDoadajPakiet;
 	private JComboBox<String> chooseBox;
@@ -34,7 +36,20 @@ public class Pacjent extends JPanel {
 	private JTextArea errorField;
 	private JButton btnWyszukaj_1;
 	private JButton btnUsunPacjenta_1;
+	private DefaultListModel<String> listaPakietowPacjentaModel;
+	private DefaultComboBoxModel<String> listaPakietowDostepnychModel;
+	private JScrollPane scrollPane;
+	private JList<String> listaPakietowPacjenta;
 	
+	
+	public DefaultComboBoxModel<String> getListaPakietowDostepnychModel() {
+		return listaPakietowDostepnychModel;
+	}
+	
+	public DefaultListModel<String> getListaPakietowPacjentaModel() {
+		return listaPakietowPacjentaModel;
+	}
+
 	public JTextField getImie() {
 		return imie;
 	}
@@ -211,17 +226,23 @@ public class Pacjent extends JPanel {
 		});
 		btnUsunPakiet.setBounds(108, 96, 117, 23);
 		pakietyPacjenta.add(btnUsunPakiet);
-		
-		listaPakietowPacjenta = new JList<String>();
-		listaPakietowPacjenta.setBounds(10, 11, 215, 74);
-		pakietyPacjenta.add(listaPakietowPacjenta);
-		
-		listaPakietowDostepnych = new JComboBox<String>();
+	
+		listaPakietowDostepnychModel = new DefaultComboBoxModel<String>();
+		listaPakietowDostepnych = new JComboBox<String>(listaPakietowDostepnychModel);
 		listaPakietowDostepnych.setBounds(10, 132, 215, 23);
 		pakietyPacjenta.add(listaPakietowDostepnych);
 		
-		btnDoadajPakiet = new JButton("Doadaj pakiet");
+		btnDoadajPakiet = new JButton("Dodaj pakiet");
 		btnDoadajPakiet.setBounds(108, 166, 117, 23);
 		pakietyPacjenta.add(btnDoadajPakiet);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 215, 74);
+		pakietyPacjenta.add(scrollPane);
+		
+		listaPakietowPacjentaModel = new DefaultListModel<String>();
+		listaPakietowPacjenta = new JList<String>(listaPakietowPacjentaModel);
+		listaPakietowPacjenta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(listaPakietowPacjenta);
 	}
 }
