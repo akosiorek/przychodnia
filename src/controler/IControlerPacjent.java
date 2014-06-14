@@ -47,12 +47,10 @@ public abstract class IControlerPacjent {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String pakiety = isPakietyPacjentaChanged();
-				if(pakiety != null) {
-					updatePakietPacjenta(pakiety, true);
-					m_pacjentWindow.getListaPakietowPacjentaModel().addElement(pakiety);
-					m_pacjentWindow.repaint();
-				}
+				String pakiety = (String)(m_pacjentWindow.getListaPakietowDostepnych().getSelectedItem());
+				updatePakietPacjenta(pakiety, true);
+				m_pacjentWindow.getListaPakietowPacjentaModel().addElement(pakiety);
+				m_pacjentWindow.repaint();
 			}
 			
 		});
@@ -64,12 +62,11 @@ public abstract class IControlerPacjent {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				String pakiety = isPakietyPacjentaChanged();
-				if(pakiety != null) {
-					updatePakietPacjenta(pakiety, false);
-					m_pacjentWindow.getListaPakietowPacjentaModel().removeElement(pakiety);
-					m_pacjentWindow.repaint();
-				}
+				String pakiety = m_pacjentWindow.getListaPakietowPacjenta().getSelectedValue();
+				updatePakietPacjenta(pakiety, false);
+				m_pacjentWindow.getListaPakietowPacjentaModel().removeElement(pakiety);
+				m_pacjentWindow.repaint();
+				
 			}
 			
 		});
@@ -99,16 +96,6 @@ public abstract class IControlerPacjent {
 		});
 	}
 	
-	public String isPakietyPacjentaChanged(){
-		if(m_pacjentWindow.getListaPakietowPacjentaModel().size() == currentPacjent.size()-5)
-			return null;
-		int size;
-		if((size = m_pacjentWindow.getListaPakietowPacjentaModel().size()) > currentPacjent.size()-5)
-			return m_pacjentWindow.getListaPakietowPacjentaModel().get(size-1);
-		else 
-			size = currentPacjent.size();
-		return currentPacjent.get(size-1);				
-	}
 	
 	public boolean isDanePacjentaChanged(){
 		 if(currentPacjent.get("IMIE") != m_pacjentWindow.getImie().getText()) return true;

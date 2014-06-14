@@ -34,22 +34,17 @@ import com.toedter.calendar.JCalendar;
 import java.awt.Button;
 import java.awt.Panel;
 import javax.swing.JList;
+import javax.swing.JTextArea;
 
 public class OknoGlowne {
 
-
-
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
 	private JTextField textField_11;
 	private JTextField textField_12;
 	private JTextField textField_13;
 	private JTextField textField_14;
 	private Pacjent pacjent;
-	
+	private NowyPacjent nowyPacjent;
+	private Historia historia;
 	/**
 	 * Launch the application.
 	 */
@@ -98,13 +93,12 @@ public class OknoGlowne {
 		this.nowyPacjent = nowyPacjent;
 	}
 
-	private NowyPacjent nowyPacjent;
-
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-		
+
+	
 	private void initialize() {
 		frmPrzychodnia = new JFrame();
 		frmPrzychodnia.setTitle("Przychodnia");
@@ -128,160 +122,20 @@ public class OknoGlowne {
 		internalFrame_1.setBounds(260, 0, 588, 475);
 		frmPrzychodnia.getContentPane().add(internalFrame_1);
 		
-		JTabbedPane tabbedPane_4 = new JTabbedPane(JTabbedPane.TOP);
-		internalFrame_1.getContentPane().add(tabbedPane_4, BorderLayout.CENTER);
+		JTabbedPane panelWizyt = new JTabbedPane(JTabbedPane.TOP);
+		internalFrame_1.getContentPane().add(panelWizyt, BorderLayout.CENTER);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane_4.addTab("Historia wizyt", null, panel_2, null);
-		panel_2.setLayout(null);
+		historia = new Historia();
+		historia.initHistoria(panelWizyt);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(0, 0, 567, 154);
-		panel_2.add(panel_3);
-		panel_3.setLayout(null);
-		
-		JLabel lblWyszukajPo_1 = new JLabel("Wyszukaj po");
-		lblWyszukajPo_1.setBounds(23, 11, 77, 21);
-		panel_3.add(lblWyszukajPo_1);
-		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(110, 11, 110, 21);
-		panel_3.add(comboBox_3);
-		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setBounds(110, 43, 110, 22);
-		panel_3.add(comboBox_4);
-		
-		JComboBox comboBox_5 = new JComboBox();
-		comboBox_5.setBounds(110, 76, 110, 21);
-		panel_3.add(comboBox_5);
-		
-		JButton btnNewButton = new JButton("Wyszukaj");
-		btnNewButton.setBounds(110, 108, 89, 23);
-		panel_3.add(btnNewButton);
-		
-		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane_1.setBounds(0, 165, 557, 251);
-		panel_2.add(tabbedPane_1);
-		
-		JPanel panel_4 = new JPanel();
-		tabbedPane_1.addTab("Pacjent", null, panel_4, null);
-		panel_4.setLayout(null);
-		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBounds(368, 11, 158, 187);
-		panel_4.add(panel_6);
-		
-		JLabel label = new JLabel("Imie ");
-		label.setBounds(33, 25, 66, 14);
-		panel_4.add(label);
-		
-		JLabel label_1 = new JLabel("Drugie imie");
-		label_1.setBounds(33, 64, 86, 14);
-		panel_4.add(label_1);
-		
-		JLabel label_2 = new JLabel("Nazwisko");
-		label_2.setBounds(33, 103, 86, 14);
-		panel_4.add(label_2);
-		
-		JLabel label_3 = new JLabel("Pesel");
-		label_3.setBounds(33, 142, 66, 14);
-		panel_4.add(label_3);
-		
-		JLabel label_4 = new JLabel("Nr telefonu");
-		label_4.setBounds(33, 181, 86, 14);
-		panel_4.add(label_4);
-		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setText("IMIE");
-		textField_1.setForeground(Color.LIGHT_GRAY);
-		textField_1.setColumns(10);
-		textField_1.setBounds(146, 20, 86, 20);
-		panel_4.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setText("DRUGIE IMIE");
-		textField_2.setForeground(Color.LIGHT_GRAY);
-		textField_2.setColumns(10);
-		textField_2.setBounds(146, 60, 86, 20);
-		panel_4.add(textField_2);
-		
-		textField_3 = new JTextField();
-		textField_3.setEditable(false);
-		textField_3.setText("NAZWISKO");
-		textField_3.setForeground(Color.LIGHT_GRAY);
-		textField_3.setColumns(10);
-		textField_3.setBounds(146, 100, 86, 20);
-		panel_4.add(textField_3);
-		
-		textField_4 = new JTextField();
-		textField_4.setEditable(false);
-		textField_4.setText("PESEL");
-		textField_4.setForeground(Color.LIGHT_GRAY);
-		textField_4.setColumns(10);
-		textField_4.setBounds(146, 140, 86, 20);
-		panel_4.add(textField_4);
-		
-		textField_5 = new JTextField();
-		textField_5.setEditable(false);
-		textField_5.setText("000 000 000");
-		textField_5.setForeground(Color.LIGHT_GRAY);
-		textField_5.setColumns(10);
-		textField_5.setBounds(146, 180, 86, 20);
-		panel_4.add(textField_5);
-		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tabbedPane_1.addTab("Wizyty przeszle", null, panel_5, null);
-		tabbedPane_1.setEnabledAt(1, true);
-		panel_5.setLayout(null);
-		
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.setBounds(10, 77, 532, 135);
-		panel_5.add(editorPane);
-		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		dateChooser.setBounds(60, 23, 141, 20);
-		panel_5.add(dateChooser);
-		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(60, 46, 141, 20);
-		panel_5.add(dateChooser_1);
-		
-		JLabel lblOd = new JLabel("Od");
-		lblOd.setBounds(10, 23, 46, 14);
-		panel_5.add(lblOd);
-		
-		JLabel lblDo = new JLabel("Do");
-		lblDo.setBounds(10, 52, 46, 14);
-		panel_5.add(lblDo);
-		
-		Panel panel_9 = new Panel();
-		tabbedPane_1.addTab("Wizyty przyszle", null, panel_9, null);
-		panel_9.setLayout(null);
-		
-		JList list_2 = new JList();
-		list_2.setBounds(10, 11, 532, 149);
-		panel_9.add(list_2);
-		
-		JButton btnNewButton_3 = new JButton("Usun wizyte");
-		btnNewButton_3.setBounds(10, 177, 127, 23);
-		panel_9.add(btnNewButton_3);
-		
-		JPanel panel_7 = new JPanel();
-		tabbedPane_4.addTab("Rezerwacja wizyty", null, panel_7, null);
-		panel_7.setLayout(null);
+		JPanel rezerwacja = new JPanel();
+		panelWizyt.addTab("Rezerwacja wizyty", null, rezerwacja, null);
+		rezerwacja.setLayout(null);
 		
 		JPanel panel_8 = new JPanel();
 		panel_8.setLayout(null);
 		panel_8.setBounds(0, 0, 567, 154);
-		panel_7.add(panel_8);
+		rezerwacja.add(panel_8);
 		
 		JLabel lblWyszukajPacjenta = new JLabel("Wyszukaj pacjenta");
 		lblWyszukajPacjenta.setBounds(10, 11, 110, 54);
@@ -362,48 +216,48 @@ public class OknoGlowne {
 		List list = new List();
 		list.setMultipleMode(true);
 		list.setBounds(24, 196, 123, 119);
-		panel_7.add(list);
+		rezerwacja.add(list);
 		
 		List list_1 = new List();
 		list_1.setMultipleMode(true);
 		list_1.setBounds(166, 196, 193, 152);
-		panel_7.add(list_1);
+		rezerwacja.add(list_1);
 		
 		JCalendar calendar = new JCalendar();
 		calendar.setBounds(377, 194, 169, 154);
-		panel_7.add(calendar);
+		rezerwacja.add(calendar);
 		
 		JDateChooser dateChooser_2 = new JDateChooser();
 		dateChooser_2.setBounds(24, 387, 123, 20);
-		panel_7.add(dateChooser_2);
+		rezerwacja.add(dateChooser_2);
 		
 		Button button_2 = new Button("Utworz wizyte");
 		button_2.setBounds(377, 387, 150, 20);
-		panel_7.add(button_2);
+		rezerwacja.add(button_2);
 		
 		JLabel lblNewLabel_1 = new JLabel("Lekarz specjalista");
 		lblNewLabel_1.setBounds(24, 176, 123, 14);
-		panel_7.add(lblNewLabel_1);
+		rezerwacja.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Lekarze");
 		lblNewLabel_2.setBounds(166, 176, 46, 14);
-		panel_7.add(lblNewLabel_2);
+		rezerwacja.add(lblNewLabel_2);
 		
 		JLabel lblDataWizyty = new JLabel("Data wizyty");
 		lblDataWizyty.setBounds(24, 362, 86, 14);
-		panel_7.add(lblDataWizyty);
+		rezerwacja.add(lblDataWizyty);
 		
 		JLabel lblNewLabel_3 = new JLabel("Rodzaj uslugi");
 		lblNewLabel_3.setBounds(166, 362, 150, 14);
-		panel_7.add(lblNewLabel_3);
+		rezerwacja.add(lblNewLabel_3);
 		
 		JComboBox comboBox_9 = new JComboBox();
 		comboBox_9.setBounds(166, 387, 139, 20);
-		panel_7.add(comboBox_9);
+		rezerwacja.add(comboBox_9);
 		
 		JButton button = new JButton("Wyszukaj");
 		button.setBounds(21, 325, 126, 23);
-		panel_7.add(button);
+		rezerwacja.add(button);
 		internalFrame_1.setVisible(true);
 		internalFrame.setVisible(true);
 	}
