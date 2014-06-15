@@ -18,14 +18,52 @@ import com.toedter.calendar.JDateChooser;
 public class OknoWizyty extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_7;
+	private JTextField imie;
+	public JPanel getContentPane() {
+		return contentPane;
+	}
 
+	public JTextField getImie() {
+		return imie;
+	}
+
+	public JTextField getDrugieImie() {
+		return drugieImie;
+	}
+
+	public JTextField getNazwisko() {
+		return nazwisko;
+	}
+
+	public JTextField getPesel() {
+		return pesel;
+	}
+
+	public JTextField getLekarz() {
+		return lekarz;
+	}
+
+	public JTextField getTypUslugi() {
+		return typUslugi;
+	}
+
+	public JTextField getKoszt() {
+		return koszt;
+	}
+
+	public JTextField getData() {
+		return data;
+	}
+
+	private JTextField drugieImie;
+	private JTextField nazwisko;
+	private JTextField pesel;
+	private JTextField lekarz;
+	private JTextField typUslugi;
+	private JTextField koszt;
+	private JTextField data;
+	private JButton zatwierdz;
+	private JButton anuluj;
 	/**
 	 * Launch the application.
 	 */
@@ -40,6 +78,14 @@ public class OknoWizyty extends JFrame {
 				}
 			}
 		});
+	}
+
+	public JButton getZatwierdz() {
+		return zatwierdz;
+	}
+
+	public JButton getAnuluj() {
+		return anuluj;
 	}
 
 	/**
@@ -78,37 +124,37 @@ public class OknoWizyty extends JFrame {
 		label_4.setBounds(354, 135, 65, 14);
 		panel.add(label_4);
 		
-		textField = new JTextField();
-		textField.setText("IMIE");
-		textField.setForeground(Color.LIGHT_GRAY);
-		textField.setEditable(false);
-		textField.setColumns(10);
-		textField.setBounds(452, 32, 86, 20);
-		panel.add(textField);
+		imie = new JTextField();
+		imie.setText("IMIE");
+		imie.setForeground(Color.LIGHT_GRAY);
+		imie.setEditable(false);
+		imie.setColumns(10);
+		imie.setBounds(452, 32, 86, 20);
+		panel.add(imie);
 		
-		textField_1 = new JTextField();
-		textField_1.setText("DRUGIE IMIE");
-		textField_1.setForeground(Color.LIGHT_GRAY);
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
-		textField_1.setBounds(452, 66, 86, 20);
-		panel.add(textField_1);
+		drugieImie = new JTextField();
+		drugieImie.setText("DRUGIE IMIE");
+		drugieImie.setForeground(Color.LIGHT_GRAY);
+		drugieImie.setEditable(false);
+		drugieImie.setColumns(10);
+		drugieImie.setBounds(452, 66, 86, 20);
+		panel.add(drugieImie);
 		
-		textField_2 = new JTextField();
-		textField_2.setText("NAZWISKO");
-		textField_2.setForeground(Color.LIGHT_GRAY);
-		textField_2.setEditable(false);
-		textField_2.setColumns(10);
-		textField_2.setBounds(452, 100, 86, 20);
-		panel.add(textField_2);
+		nazwisko = new JTextField();
+		nazwisko.setText("NAZWISKO");
+		nazwisko.setForeground(Color.LIGHT_GRAY);
+		nazwisko.setEditable(false);
+		nazwisko.setColumns(10);
+		nazwisko.setBounds(452, 100, 86, 20);
+		panel.add(nazwisko);
 		
-		textField_3 = new JTextField();
-		textField_3.setText("PESEL");
-		textField_3.setForeground(Color.LIGHT_GRAY);
-		textField_3.setEditable(false);
-		textField_3.setColumns(10);
-		textField_3.setBounds(452, 134, 86, 20);
-		panel.add(textField_3);
+		pesel = new JTextField();
+		pesel.setText("PESEL");
+		pesel.setForeground(Color.LIGHT_GRAY);
+		pesel.setEditable(false);
+		pesel.setColumns(10);
+		pesel.setBounds(452, 134, 86, 20);
+		panel.add(pesel);
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
 		verticalStrut.setBounds(295, 11, 10, 180);
@@ -130,44 +176,48 @@ public class OknoWizyty extends JFrame {
 		lblCena.setBounds(22, 137, 89, 21);
 		panel.add(lblCena);
 		
-		textField_4 = new JTextField();
-		textField_4.setText("IMIE");
-		textField_4.setForeground(Color.LIGHT_GRAY);
-		textField_4.setEditable(false);
-		textField_4.setColumns(10);
-		textField_4.setBounds(121, 36, 135, 20);
-		panel.add(textField_4);
+		lekarz = new JTextField();
+		lekarz.setText("LEKARZ");
+		lekarz.setForeground(Color.LIGHT_GRAY);
+		lekarz.setEditable(false);
+		lekarz.setColumns(10);
+		lekarz.setBounds(121, 36, 135, 20);
+		panel.add(lekarz);
 		
-		textField_5 = new JTextField();
-		textField_5.setText("DRUGIE IMIE");
-		textField_5.setForeground(Color.LIGHT_GRAY);
-		textField_5.setEditable(false);
-		textField_5.setColumns(10);
-		textField_5.setBounds(121, 70, 135, 20);
-		panel.add(textField_5);
+		typUslugi = new JTextField();
+		typUslugi.setText("TYP USLUGI");
+		typUslugi.setForeground(Color.LIGHT_GRAY);
+		typUslugi.setEditable(false);
+		typUslugi.setColumns(10);
+		typUslugi.setBounds(121, 70, 135, 20);
+		panel.add(typUslugi);
 		
-		textField_7 = new JTextField();
-		textField_7.setText("PESEL");
-		textField_7.setForeground(Color.LIGHT_GRAY);
-		textField_7.setEditable(false);
-		textField_7.setColumns(10);
-		textField_7.setBounds(121, 138, 135, 20);
-		panel.add(textField_7);
+		koszt = new JTextField();
+		koszt.setText("CENA");
+		koszt.setForeground(Color.LIGHT_GRAY);
+		koszt.setEditable(false);
+		koszt.setColumns(10);
+		koszt.setBounds(121, 138, 135, 20);
+		panel.add(koszt);
 		
 		JLabel lblWizyta = new JLabel("WIZYTA");
 		lblWizyta.setBounds(90, 11, 142, 14);
 		panel.add(lblWizyta);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(121, 107, 135, 20);
-		panel.add(dateChooser);
+		data = new JTextField();
+		data.setText("DATA");
+		data.setForeground(Color.LIGHT_GRAY);
+		data.setEditable(false);
+		data.setColumns(10);
+		data.setBounds(121, 105, 135, 20);
+		panel.add(data);
 		
-		JButton btnNewButton = new JButton("Zatwierdz wizyte");
-		btnNewButton.setBounds(10, 202, 137, 23);
-		contentPane.add(btnNewButton);
+		zatwierdz = new JButton("Zatwierdz wizyte");
+		zatwierdz.setBounds(10, 202, 137, 23);
+		contentPane.add(zatwierdz);
 		
-		JButton btnNewButton_1 = new JButton("Anuluj ");
-		btnNewButton_1.setBounds(193, 202, 89, 23);
-		contentPane.add(btnNewButton_1);
+		anuluj = new JButton("Anuluj ");
+		anuluj.setBounds(193, 202, 89, 23);
+		contentPane.add(anuluj);
 	}
 }

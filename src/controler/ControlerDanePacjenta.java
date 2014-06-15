@@ -2,14 +2,16 @@ package controler;
 
 import java.util.HashMap;
 
-import gui.DanePacjenta;
+import gui.DanePacjentaHistoria;
+import gui.DanePacjentaRezerwacja;
+import gui.IDanePacjenta;
 
 public class ControlerDanePacjenta {
 
-	DanePacjenta m_danePacjenta;
+	IDanePacjenta m_danePacjenta;
 	
-	ControlerDanePacjenta(DanePacjenta danePacjenta){
-		m_danePacjenta = danePacjenta;
+	ControlerDanePacjenta(IDanePacjenta danePacjentaRezerwacja){
+		m_danePacjenta = danePacjentaRezerwacja;
 	}
 	
 	public void setDanePacjenta(HashMap<String,String> dane){

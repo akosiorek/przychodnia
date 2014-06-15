@@ -6,33 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
-public class DanePacjenta extends JPanel {
-
-	private JTextField imie;
-	private JTextField drugieImie;
-	private JTextField nazwisko;
-	private JTextField pesel;
-	private JTextField telefon;
-	
-	public JTextField getImie() {
-		return imie;
-	}
-
-	public JTextField getDrugieImie() {
-		return drugieImie;
-	}
-
-	public JTextField getNazwisko() {
-		return nazwisko;
-	}
-
-	public JTextField getPesel() {
-		return pesel;
-	}
-
-	public JTextField getTelefon() {
-		return telefon;
-	}
+public class DanePacjentaHistoria extends IDanePacjenta {
 
 	public void init(JTabbedPane dane){
 		dane.addTab("Pacjent", null, this, null);

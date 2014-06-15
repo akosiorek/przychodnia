@@ -13,7 +13,7 @@ public class Historia extends JPanel {
 		//initHistoria(null);
 	}
 
-	DanePacjenta danePacjenta;
+	DanePacjentaHistoria danePacjenta;
 	WizytyPrzeszle wizytyPrzeszle;
 	WizytyPrzyszle wizytyPrzyszle;
 	JComboBox<String> wyszukajBox;
@@ -41,7 +41,7 @@ public class Historia extends JPanel {
 	}
 
 
-	public DanePacjenta getDanePacjenta() {
+	public DanePacjentaHistoria getDanePacjenta() {
 		return danePacjenta;
 	}
 
@@ -91,7 +91,7 @@ public class Historia extends JPanel {
 		dane.setBounds(0, 165, 557, 251);
 		this.add(dane);
 		
-		danePacjenta = new DanePacjenta();
+		danePacjenta = new DanePacjentaHistoria();
 		danePacjenta.init(dane);
 		
 		wizytyPrzeszle = new WizytyPrzeszle();
