@@ -170,7 +170,7 @@ public abstract class IControlerPacjent {
 	}
 	
 	public void findPacjent(){
-		String key = m_pacjentWindow.getChooseBox().toString();
+		String key = m_pacjentWindow.getChooseBox().getSelectedItem().toString();
 		String value = m_pacjentWindow.getValue().getText();
 		MPair<Integer,HashMap<String,String>> pacjent = checkDanePacjenta(key,value);
 		

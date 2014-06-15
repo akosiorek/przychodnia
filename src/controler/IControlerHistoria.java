@@ -15,6 +15,7 @@ public abstract class IControlerHistoria {
 	IControlerWizytyPrzeszle controlerWizytyPrzeszle;
 	
 	IControlerHistoria(Historia historyWindow){
+        m_historyWindow = historyWindow;
 		controlerDanePacjenta = new ControlerDanePacjenta(m_historyWindow.getDanePacjenta());
 		controlerWizytyPrzyszle = new ControlerWizytyPrzyszle(m_historyWindow.getWizytyPrzyszle());
 		controlerWizytyPrzeszle = new ControlerWizytyPrzeszle(m_historyWindow.getWizytyPrzeszle());

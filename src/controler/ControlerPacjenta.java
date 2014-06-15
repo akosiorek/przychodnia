@@ -1,5 +1,6 @@
 package controler;
 
+import db.ConnectExpection;
 import db.QueryException;
 import db.dbDAO;
 import gui.Pacjent;
@@ -30,9 +31,13 @@ public class ControlerPacjenta extends IControlerPacjent {
 
         List<String[]> result = null;
         try {
-             result = db.executeQueryList(query);
+            db.establishConnection();
+            result = db.executeQueryList(query);
+            db.closeConnection();
         } catch (QueryException e) {
             e.printStackTrace();
+        } catch (ConnectExpection connectExpection) {
+            connectExpection.printStackTrace();
         }
 
         pair.first = result.size();
@@ -54,18 +59,21 @@ public class ControlerPacjenta extends IControlerPacjent {
     public ArrayList<String> readPakiety() {
         ArrayList<String> pakiety = new ArrayList<String>();
         String query = "SELECT nazwa FROM pakiet";
-
         try {
+            db.establishConnection();
             ResultSet rs = db.executeQuery(query);
             while(rs.next()) {
                 pakiety.add(rs.getString(1));
-
             }
-        } catch (QueryException e) {
-            e.printStackTrace();
+            db.closeConnection();
+        } catch (ConnectExpection connectExpection) {
+            connectExpection.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (QueryException e) {
+            e.printStackTrace();
         }
+
         return pakiety;
     }
 
@@ -74,9 +82,13 @@ public class ControlerPacjenta extends IControlerPacjent {
 
         String query = "DELETE FROM pacjent WHERE pesel = " + pesel;
         try {
+            db.establishConnection();
             db.executeUpdate(query);
+            db.closeConnection();
         } catch (QueryException e) {
             e.printStackTrace();
+        } catch (ConnectExpection connectExpection) {
+            connectExpection.printStackTrace();
         }
     }
 
@@ -107,9 +119,13 @@ public class ControlerPacjenta extends IControlerPacjent {
         builder.append(pesel);
 
         try {
+            db.establishConnection();
             db.executeUpdate(builder.toString());
+            db.closeConnection();
         } catch (QueryException e) {
             e.printStackTrace();
+        } catch (ConnectExpection connectExpection) {
+            connectExpection.printStackTrace();
         }
     }
 
