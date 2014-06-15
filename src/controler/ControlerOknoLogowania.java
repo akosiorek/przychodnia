@@ -66,7 +66,6 @@ public class ControlerOknoLogowania extends IControlerOknoLogowania {
                     String from = daysResult.getString(2);
                     String to = daysResult.getString(3);
                     days.put(day, new Hours(from, to));
-
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

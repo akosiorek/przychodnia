@@ -48,7 +48,7 @@ public abstract class IControlerPacjent {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String pakiety = (String)(m_pacjentWindow.getListaPakietowDostepnych().getSelectedItem());
-				updatePakietPacjenta(pakiety, true);
+				updatePakietPacjenta(pakiety, currentPacjent.get("PESEL"), true);
 				m_pacjentWindow.getListaPakietowPacjentaModel().addElement(pakiety);
 				m_pacjentWindow.repaint();
 			}
@@ -63,7 +63,7 @@ public abstract class IControlerPacjent {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				String pakiety = m_pacjentWindow.getListaPakietowPacjenta().getSelectedValue();
-				updatePakietPacjenta(pakiety, false);
+				updatePakietPacjenta(pakiety,  currentPacjent.get("PESEL"), false);
 				m_pacjentWindow.getListaPakietowPacjentaModel().removeElement(pakiety);
 				m_pacjentWindow.repaint();
 				
@@ -86,7 +86,8 @@ public abstract class IControlerPacjent {
 						danePacjenta.put("NAZWISKO",m_pacjentWindow.getNazwisko().getText());
 						danePacjenta.put("PESEL",m_pacjentWindow.getPesel().getText());
 						danePacjenta.put("TELEFON",m_pacjentWindow.getTelefon().getText());
-						updateDanePacjenta(danePacjenta);
+						updateDanePacjenta(danePacjenta, currentPacjent.get("PESEL"));
+                        currentPacjent = danePacjenta;
 					}
 					else 
 						m_pacjentWindow.getErrorField().setText("Podano nieprawidlowe dane");
@@ -137,8 +138,8 @@ public abstract class IControlerPacjent {
 	abstract public MPair<Integer,HashMap<String,String> > checkDanePacjenta(String key,String value);
 	abstract public ArrayList<String> readPakiety();
 	abstract public void removePacjent(String pesel);
-	abstract public void updateDanePacjenta(HashMap<String,String> danePacjenta);
-	abstract public void updatePakietPacjenta(String pakietPacjenta, boolean add);
+	abstract public void updateDanePacjenta(HashMap<String,String> danePacjenta, String pesel);
+	abstract public void updatePakietPacjenta(String pakietPacjenta, String pesel,  boolean add);
 	
 	public void initPakiety(){
 		ArrayList<String> pakiety = readPakiety();
