@@ -14,6 +14,18 @@ public abstract class IControlerRezerwacja {
 	IControlerOknoWizyty controlerOknoWizyty;
 	ControlerDanePacjenta controlerDanePacjenta;
 	
+	public Rezerwacja getM_rezerwacjaWindow() {
+		return m_rezerwacjaWindow;
+	}
+
+	public IControlerOknoWizyty getControlerOknoWizyty() {
+		return controlerOknoWizyty;
+	}
+
+	public ControlerDanePacjenta getControlerDanePacjenta() {
+		return controlerDanePacjenta;
+	}
+
 	IControlerRezerwacja (Rezerwacja rezerwacjaWindow){
 		m_rezerwacjaWindow = rezerwacjaWindow;
 		controlerDanePacjenta = new ControlerDanePacjenta(m_rezerwacjaWindow.getDanePacjenta());
@@ -37,8 +49,9 @@ public abstract class IControlerRezerwacja {
 			public void actionPerformed(ActionEvent arg0) {
 				wyswietlLekarzy();
 			}
-		});
+		});		
 	}
+	
 	
 	public void addUtworzWizyteActionListener(){
 		m_rezerwacjaWindow.getWyszukajLekarza().addActionListener(new ActionListener(){

@@ -3,19 +3,19 @@ package controler;
 public class ControlerOkien {
 
 	private IControlerOknoLogowania oknoLogowania;
-	private IControlerOknoGlowne oknoGlowne;
+	private ControlerOknoGlowne oknoGlowne;
 
-	public IControlerOknoGlowne getOknoGlowne() {
+	public ControlerOknoGlowne getOknoGlowne() {
 		return oknoGlowne;
 	}
 
-	public void setOknoGlowne(IControlerOknoGlowne oknoGlowne) {
+	public void setOknoGlowne(ControlerOknoGlowne oknoGlowne) {
 		this.oknoGlowne = oknoGlowne;
 	}
 
 	ControlerOkien(){
 		oknoLogowania = new ControlerOknoLogowania(this);
-		oknoGlowne = new IControlerOknoGlowne(this);
+		oknoGlowne = new ControlerOknoGlowne(this);
 		System.out.println("Controler");
 	}
 	

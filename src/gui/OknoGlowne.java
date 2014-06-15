@@ -42,6 +42,14 @@ public class OknoGlowne {
 	private Pacjent pacjent;
 	private NowyPacjent nowyPacjent;
 	private Historia historia;
+	public Historia getHistoria() {
+		return historia;
+	}
+
+	public Rezerwacja getRezerwacja() {
+		return rezerwacja;
+	}
+
 	private Rezerwacja rezerwacja;
 	/**
 	 * Launch the application.
