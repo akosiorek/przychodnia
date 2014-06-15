@@ -12,12 +12,16 @@ public abstract class IControlerWizytyPrzeszle {
 	private WizytyPrzeszle m_wizytyPrzeszle;
 	private String pesel;
 	
-	public WizytyPrzeszle getM_wizytyPrzeszle() {
+	public WizytyPrzeszle getWizytyPrzeszle() {
 		return m_wizytyPrzeszle;
 	}
 
 	public String getPesel() {
 		return pesel;
+	}
+
+	public void setPesel(String pesel) {
+		this.pesel = pesel;
 	}
 
 	IControlerWizytyPrzeszle(WizytyPrzeszle wizytyPrzeszle){
@@ -40,7 +44,8 @@ public abstract class IControlerWizytyPrzeszle {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				setListaWizyt(checkWizyty(m_wizytyPrzeszle.getDataOd().getDate(),m_wizytyPrzeszle.getDataOd().getDate(),pesel));
+				if(CheckPacjent.checkPesel(pesel))
+					setListaWizyt(checkWizyty(m_wizytyPrzeszle.getDataOd().getDate(),m_wizytyPrzeszle.getDataOd().getDate(),pesel));
 			}
 		
 		});

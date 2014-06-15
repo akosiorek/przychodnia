@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -15,7 +16,46 @@ public class Historia extends JPanel {
 	DanePacjenta danePacjenta;
 	WizytyPrzeszle wizytyPrzeszle;
 	WizytyPrzyszle wizytyPrzyszle;
+	JComboBox<String> wyszukajBox;
+	JTextField valueField;
+	JTextField errorField;
+	JButton btnWyszukaj_2;
 	
+	public JButton getBtnWyszukaj_2() {
+		return btnWyszukaj_2;
+	}
+
+
+	public JComboBox<String> getWyszukajBox() {
+		return wyszukajBox;
+	}
+
+
+	public JTextField getValueField() {
+		return valueField;
+	}
+
+
+	public JTextField getErrorField() {
+		return errorField;
+	}
+
+
+	public DanePacjenta getDanePacjenta() {
+		return danePacjenta;
+	}
+
+
+	public WizytyPrzeszle getWizytyPrzeszle() {
+		return wizytyPrzeszle;
+	}
+
+
+	public WizytyPrzyszle getWizytyPrzyszle() {
+		return wizytyPrzyszle;
+	}
+
+
 	public void initHistoria(JTabbedPane panelWizyt){
 		
 		panelWizyt.addTab("Historia wizyt", null, this, null);
@@ -30,20 +70,20 @@ public class Historia extends JPanel {
 		lblWyszukajPo_1.setBounds(23, 11, 141, 21);
 		wyszukaj.add(lblWyszukajPo_1);
 		
-		JComboBox wyszukajBox = new JComboBox();
+		wyszukajBox = new JComboBox<String>(new DefaultComboBoxModel<String>(new String[] {"Pesel", "Nazwisko", "Imie"}));
 		wyszukajBox.setBounds(174, 11, 199, 21);
 		wyszukaj.add(wyszukajBox);
 		
-		JTextField valueField_2 = new JTextField();
-		valueField_2.setBounds(174, 43, 199, 22);
-		wyszukaj.add(valueField_2);
+		valueField = new JTextField();
+		valueField.setBounds(174, 43, 199, 22);
+		wyszukaj.add(valueField);
 		
-		JTextField errorField_2 = new JTextField();
-		errorField_2.setEditable(false);
-		errorField_2.setBounds(174, 76, 199, 21);
-		wyszukaj.add(errorField_2);
+		errorField = new JTextField();
+		errorField.setEditable(false);
+		errorField.setBounds(174, 76, 199, 21);
+		wyszukaj.add(errorField);
 		
-		JButton btnWyszukaj_2 = new JButton("Wyszukaj");
+		btnWyszukaj_2 = new JButton("Wyszukaj");
 		btnWyszukaj_2.setBounds(174, 108, 89, 23);
 		wyszukaj.add(btnWyszukaj_2);
 		
