@@ -19,6 +19,9 @@ public abstract class IControlerPacjent {
 		initPakiety();
 		addWyszukajActionListener();
 		addUsunPacjentaActionListener();
+        addDodajPakietActionListener();
+        addUsunPakietActionListener();
+        addZatwierdzZmianyActionListener();
 	}
 	
 	public void addWyszukajActionListener(){
@@ -36,8 +39,11 @@ public abstract class IControlerPacjent {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (CheckPacjent.checkPesel(m_pacjentWindow.getPesel().getText()))
+				if (CheckPacjent.checkPesel(m_pacjentWindow.getPesel().getText())) {
 					removePacjent(m_pacjentWindow.getPesel().getText());
+                    clearPacjentData();
+                    m_pacjentWindow.repaint();
+                }
 			}			
 		});
 	}
@@ -48,7 +54,7 @@ public abstract class IControlerPacjent {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String pakiety = (String)(m_pacjentWindow.getListaPakietowDostepnych().getSelectedItem());
-				updatePakietPacjenta(pakiety, currentPacjent.get("PESEL"), true);
+				updatePakietPacjenta(pakiety, currentPacjent.get("PESEL"));
 				m_pacjentWindow.getListaPakietowPacjentaModel().addElement(pakiety);
 				m_pacjentWindow.repaint();
 			}
@@ -63,7 +69,7 @@ public abstract class IControlerPacjent {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				String pakiety = m_pacjentWindow.getListaPakietowPacjenta().getSelectedValue();
-				updatePakietPacjenta(pakiety,  currentPacjent.get("PESEL"), false);
+				updatePakietPacjenta("5",  currentPacjent.get("PESEL"));
 				m_pacjentWindow.getListaPakietowPacjentaModel().removeElement(pakiety);
 				m_pacjentWindow.repaint();
 				
@@ -139,7 +145,7 @@ public abstract class IControlerPacjent {
 	abstract public ArrayList<String> readPakiety();
 	abstract public void removePacjent(String pesel);
 	abstract public void updateDanePacjenta(HashMap<String,String> danePacjenta, String pesel);
-	abstract public void updatePakietPacjenta(String pakietPacjenta, String pesel,  boolean add);
+	abstract public void updatePakietPacjenta(String pakietPacjenta, String pesel);
 	
 	public void initPakiety(){
 		ArrayList<String> pakiety = readPakiety();
@@ -164,10 +170,8 @@ public abstract class IControlerPacjent {
 		m_pacjentWindow.getNazwisko().setText(danePacjenta.get("NAZWISKO"));
 		m_pacjentWindow.getPesel().setText(danePacjenta.get("PESEL"));
 		m_pacjentWindow.getTelefon().setText(danePacjenta.get("TELEFON"));
-		
-		for( int i = 5; i < danePacjenta.size(); ++i)
-			m_pacjentWindow.getListaPakietowPacjentaModel().addElement(danePacjenta.get("PAKIET" + Integer.toString(i)));
-	}
+		m_pacjentWindow.getListaPakietowPacjentaModel().addElement(danePacjenta.get("PAKIET"));
+    }
 	
 	public void findPacjent(){
 		String key = m_pacjentWindow.getChooseBox().getSelectedItem().toString();

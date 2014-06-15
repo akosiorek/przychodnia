@@ -26,7 +26,7 @@ public class ControlerPacjenta extends IControlerPacjent {
         MPair<Integer, HashMap<String, String>> pair = new  MPair<Integer, HashMap<String, String>>();
 
         String sep = key.compareToIgnoreCase("pesel") == 0 ? "'" : "";
-        String query = "SELECT imie, imie2, nazwisko, pesel, nr_tel FROM pacjent where " +
+        String query = "SELECT imie, imie2, nazwisko, pesel, nr_tel, pakiet_id FROM pacjent where " +
                 key + " = " + sep + value + sep;
 
         List<String[]> result = null;
@@ -50,6 +50,19 @@ public class ControlerPacjenta extends IControlerPacjent {
         map.put("NAZWISKO", values[2]);
         map.put("PESEL", values[3]);
         map.put("TELEFON", values[4]);
+
+        String pakietId = values[5];
+        query = "SELECT nazwa FROM pakiet WHERE id = " + pakietId;
+        try {
+            db.establishConnection();
+            result = db.executeQueryList(query);
+            db.closeConnection();
+        } catch (QueryException e) {
+            e.printStackTrace();
+        } catch (ConnectExpection connectExpection) {
+            connectExpection.printStackTrace();
+        }
+        map.put("PAKIET", result.get(0)[0]);
 
         pair.second = map;
         return pair;
@@ -130,14 +143,18 @@ public class ControlerPacjenta extends IControlerPacjent {
     }
 
     @Override
-    public void updatePakietPacjenta(String pakietPacjenta, String pesel, boolean add) {
+    public void updatePakietPacjenta(String pakietPacjenta, String pesel) {
 
-        String query = null;
-        if(add) {
-
-        } else {
-
-
+        String query = "UPDATE TABLE pacjent SET pakiet_id = " + pakietPacjenta
+                + " WHERE pesel = " + pesel;
+        try {
+            db.establishConnection();
+            db.executeUpdate(query);
+            db.closeConnection();
+        } catch (QueryException e) {
+            e.printStackTrace();
+        } catch (ConnectExpection connectExpection) {
+            connectExpection.printStackTrace();
         }
     }
 }
