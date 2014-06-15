@@ -49,7 +49,7 @@ public abstract class IControlerOknoLogowania {
 		m_oknoLogowania.getAdres().setText(readAdres());
 
 		Map<String, Hours> days = readDays();
-//		m_oknoLogowania.getPoniedzialek().setText(getDay(days, "poniedzialek"));
+		m_oknoLogowania.getPoniedzialek().setText(getDay(days, "poniedzialek"));
 //		m_oknoLogowania.getWtorek().setText(getDay(days, "wtorek"));
 //		m_oknoLogowania.getSroda().setText(getDay(days, "sroda"));
 //		m_oknoLogowania.getCzwartek().setText(getDay(days, "czwartek"));

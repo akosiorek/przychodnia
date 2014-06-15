@@ -26,11 +26,11 @@ public class ControlerOknoLogowania extends IControlerOknoLogowania {
 
     static {
         Map<Integer, String> aMap = new TreeMap<Integer, String>();
-        aMap.put(1, "poniedziałek");
+        aMap.put(1, "poniedzialek");
         aMap.put(2, "wtorek");
-        aMap.put(3, "środa");
+        aMap.put(3, "sroda");
         aMap.put(4, "czwartek");
-        aMap.put(5, "piątek");
+        aMap.put(5, "piatek");
         aMap.put(6, "sobota");
         aMap.put(7, "niedziela");
         intToDayMap = Collections.unmodifiableMap(aMap);
@@ -63,8 +63,8 @@ public class ControlerOknoLogowania extends IControlerOknoLogowania {
             try {
                 while(daysResult.next()) {
                     String day = intToDayMap.get(daysResult.getInt(1));
-                    String from = new DateTime(daysResult.getDate(2)).toString("HH:mm");
-                    String to = new DateTime(daysResult.getDate(3)).toString("HH:mm");
+                    String from = daysResult.getString(2);
+                    String to = daysResult.getString(3);
                     days.put(day, new Hours(from, to));
 
                 }
