@@ -102,7 +102,7 @@ public abstract class IControlerNowyPacjent {
 		
 		m_nowyPacjentWindow.getTxtpnKomunikatBledu().setText("Podane dane sa prawidlowe");
 		textChange(true);
-		return false;		
+		return true;
 	}
 	
 	public boolean dodajPacjenta(){

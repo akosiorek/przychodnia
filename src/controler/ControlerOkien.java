@@ -33,6 +33,8 @@ public class ControlerOkien {
 	}
 	
 	public static void main(String[] args) {
+
+
 		ControlerOkien controler = new ControlerOkien();
 		controler.getOknoLogowania().run();		
 	}
