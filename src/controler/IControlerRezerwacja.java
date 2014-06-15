@@ -113,7 +113,7 @@ public abstract class IControlerRezerwacja {
 		wizyta.put("NAZWISKO",  m_rezerwacjaWindow.getDanePacjenta().getNazwisko().getText());
 		wizyta.put("DRUGIE_IMIE",  m_rezerwacjaWindow.getDanePacjenta().getDrugieImie().getText());
 		wizyta.put("PESEL",  m_rezerwacjaWindow.getDanePacjenta().getPesel().getText());
-		wizyta.put("STATUS", "niezrealizowana");
+		wizyta.put("STATUS", "0");
 		wizyta.put("NAZWA", "nazwa to nie notatka");
 		wizyta.put("TYP",  m_rezerwacjaWindow.getUslugi().getSelectedItem().toString());
 		return wizyta;

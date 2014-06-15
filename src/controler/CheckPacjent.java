@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 public class CheckPacjent {
 	static public boolean checkString(String string){
+		System.out.println("string: " + string);
 		if(string.length() == 0) return false;
 		 Pattern p = Pattern.compile("[a-zA-Z]{"+Integer.toString(string.length())+"}");
 		 Matcher m = p.matcher(string);

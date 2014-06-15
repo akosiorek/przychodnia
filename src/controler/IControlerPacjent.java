@@ -4,9 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import gui.Pacjent;
 
@@ -29,6 +26,8 @@ public abstract class IControlerPacjent {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				clearPacjentData();
+                m_pacjentWindow.repaint();
 				findPacjent();
 			}
 		});
@@ -41,7 +40,7 @@ public abstract class IControlerPacjent {
 			public void actionPerformed(ActionEvent arg0) {
 				if (CheckPacjent.checkPesel(m_pacjentWindow.getPesel().getText())) {
 					removePacjent(m_pacjentWindow.getPesel().getText());
-                    clearPacjentData();
+                    findPacjent();
                     m_pacjentWindow.repaint();
                 }
 			}			
@@ -55,6 +54,7 @@ public abstract class IControlerPacjent {
 			public void actionPerformed(ActionEvent arg0) {
 				String pakiety = (String)(m_pacjentWindow.getListaPakietowDostepnych().getSelectedItem());
 				updatePakietPacjenta(pakiety, currentPacjent.get("PESEL"));
+				m_pacjentWindow.getListaPakietowPacjentaModel().removeAllElements();
 				m_pacjentWindow.getListaPakietowPacjentaModel().addElement(pakiety);
 				m_pacjentWindow.repaint();
 			}
@@ -171,11 +171,17 @@ public abstract class IControlerPacjent {
 		m_pacjentWindow.getPesel().setText(danePacjenta.get("PESEL"));
 		m_pacjentWindow.getTelefon().setText(danePacjenta.get("TELEFON"));
 		m_pacjentWindow.getListaPakietowPacjentaModel().addElement(danePacjenta.get("PAKIET"));
+		m_pacjentWindow.repaint();
     }
 	
 	public void findPacjent(){
 		String key = m_pacjentWindow.getChooseBox().getSelectedItem().toString();
 		String value = m_pacjentWindow.getValue().getText();
+		if(!CheckPacjent.checkString(value) && !CheckPacjent.checkPesel(value)){
+			m_pacjentWindow.getErrorField().setText("Bledne dane");
+			return;
+		}
+		m_pacjentWindow.getErrorField().setText("");
 		MPair<Integer,HashMap<String,String>> pacjent = checkDanePacjenta(key,value);
 		
 		if (pacjent.first == 1)
