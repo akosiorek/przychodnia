@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Map;
 
 import gui.OknoLogowania;
 
@@ -27,11 +28,11 @@ public abstract class IControlerOknoLogowania {
 		addActionZaloguj();
 	}
 
-	private String getDay(HashMap<String, Hours> days, String day) {
+	private String getDay(Map<String, Hours> days, String day) {
 		return days.get(day).getFrom() + " - " + days.get(day).getTo();
 	}
 
-	public abstract HashMap<String, Hours> readDays();
+	public abstract Map<String, Hours> readDays();
 
 	public abstract String readNazwa();
 
@@ -47,13 +48,13 @@ public abstract class IControlerOknoLogowania {
 		m_oknoLogowania.getTelefon().setText(readNrTelefonu());
 		m_oknoLogowania.getAdres().setText(readAdres());
 
-		HashMap<String, Hours> days = readDays();
-		m_oknoLogowania.getPoniedzialek().setText(getDay(days, "poniedzialek"));
-		m_oknoLogowania.getWtorek().setText(getDay(days, "wtorek"));
-		m_oknoLogowania.getSroda().setText(getDay(days, "sroda"));
-		m_oknoLogowania.getCzwartek().setText(getDay(days, "czwartek"));
-		m_oknoLogowania.getPiatek().setText(getDay(days, "piatek"));
-		m_oknoLogowania.getSobota().setText(getDay(days, "sobota"));
+		Map<String, Hours> days = readDays();
+//		m_oknoLogowania.getPoniedzialek().setText(getDay(days, "poniedzialek"));
+//		m_oknoLogowania.getWtorek().setText(getDay(days, "wtorek"));
+//		m_oknoLogowania.getSroda().setText(getDay(days, "sroda"));
+//		m_oknoLogowania.getCzwartek().setText(getDay(days, "czwartek"));
+//		m_oknoLogowania.getPiatek().setText(getDay(days, "piatek"));
+//		m_oknoLogowania.getSobota().setText(getDay(days, "sobota"));
 	}
 
 	public void addActionZaloguj() {
