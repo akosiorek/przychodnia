@@ -26,8 +26,8 @@ public abstract class IControlerPacjent {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				clearPacjentData();
-                m_pacjentWindow.repaint();
+
+                clearPacjentData();
 				findPacjent();
 			}
 		});
@@ -69,7 +69,7 @@ public abstract class IControlerPacjent {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				String pakiety = m_pacjentWindow.getListaPakietowPacjenta().getSelectedValue();
-				updatePakietPacjenta("5",  currentPacjent.get("PESEL"));
+				updatePakietPacjenta("Normalny",  currentPacjent.get("PESEL"));
 				m_pacjentWindow.getListaPakietowPacjentaModel().removeElement(pakiety);
 				m_pacjentWindow.repaint();
 				

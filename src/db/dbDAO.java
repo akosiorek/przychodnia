@@ -1,6 +1,5 @@
 package db;
 
-import javax.management.Query;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.DriverManager;
@@ -20,20 +19,22 @@ public class dbDAO {
 	private final static String USER_NAME = "userName";
 	private final static String PASSWORD = "password";
 	
-	private Connection connection;
-	private Statement statement;
+	private static Connection connection;
+	private static Statement statement;
 
-	private String userName;
-	private String password;
-	private String driver;
-	private String url;
-	public dbDAO() {
-		
-		connection = null;
-		readProperties();
-	}
+	private static String userName;
+	private static String password;
+	private static String driver;
+	private static String url;
+
+	protected dbDAO() {}
+
+    static {
+        readProperties();
+    }
+
 	
-	private void readProperties() {
+	private static void readProperties() {
 		
 		Properties prop = new Properties();
 		try {
@@ -50,7 +51,7 @@ public class dbDAO {
 		}		
 	}
 	
-	public void establishConnection() throws ConnectExpection {
+	public static void establishConnection() throws ConnectExpection {
 
 		try {
 			Class.forName(driver).newInstance();
@@ -62,7 +63,7 @@ public class dbDAO {
 	}
 
 	
-	public void closeConnection() throws ConnectExpection {
+	public static void closeConnection() throws ConnectExpection {
 		
 		if(statement != null)
 			try {
@@ -81,7 +82,7 @@ public class dbDAO {
 		}
 	}
 	
-	public ResultSet executeQuery(String query) throws QueryException {
+	public static ResultSet executeQuery(String query) throws QueryException {
 		
 		ResultSet rs = null;
 		try {
@@ -90,15 +91,29 @@ public class dbDAO {
 		} catch(SQLException e) {
             throw new QueryException("Couldn't execute the following statement:\n" + query + "\n" + e.getMessage());
 		}
+        System.out.println("Executed query: " + query);
+
 		return rs;
 	}
 
-    public List<String[]> executeQueryList(String query) throws QueryException {
+    public static List<String[]> executeQueryList(String query, boolean withHeader) throws QueryException {
 
         ArrayList<String[]> resultList = new ArrayList<String[]>();
         ResultSet rs = executeQuery(query);
 
         try {
+
+            if(withHeader) {
+
+               String[] header = new String[rs.getMetaData().getColumnCount()];
+               for(int i = 0; i < header.length; ++i) {
+
+                   header[i] = rs.getMetaData().getColumnName(i + 1);
+               }
+                resultList.add(header);
+            }
+
+
             while(rs.next()) {
                 String[] result = new String[rs.getMetaData().getColumnCount()];
                 for(int i = 0; i < result.length; ++i) {
@@ -114,7 +129,7 @@ public class dbDAO {
         return resultList;
     }
 	
-	public void executeUpdate(String query) throws QueryException {
+	public static void executeUpdate(String query) throws QueryException {
 
 		try {
 			statement = connection.createStatement();
@@ -125,6 +140,7 @@ public class dbDAO {
 		} catch(SQLException e) {
             throw new QueryException("Couldn't execute the following statement:\n" + query + "\n" + e.getMessage());
 		}
+        System.out.println("Executed update: " + query);
 	}
 	
 	public static void main(String[] args) throws ConnectExpection, QueryException {
@@ -143,4 +159,16 @@ public class dbDAO {
         }
         db.closeConnection();
 	}
+
+    @Override
+    protected void finalize() throws Throwable {
+
+        try {
+            closeConnection();
+        } catch (ConnectExpection err) {
+            System.err.println("Error on dbDAO.finalize()");
+        } finally {
+            super.finalize();
+        }
+    }
 }

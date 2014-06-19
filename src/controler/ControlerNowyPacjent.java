@@ -2,14 +2,13 @@ package controler;
 
 import db.ConnectExpection;
 import db.QueryException;
+import db.SafeDAO;
 import db.dbDAO;
 import gui.NowyPacjent;
 
 import java.util.ArrayList;
 
 public class ControlerNowyPacjent extends IControlerNowyPacjent {
-
-    private final static dbDAO db = new dbDAO();
 
 	 public ControlerNowyPacjent(NowyPacjent nowyPacjentWindow) {
 		super(nowyPacjentWindow);
@@ -25,18 +24,7 @@ public class ControlerNowyPacjent extends IControlerNowyPacjent {
                 "" + dane.get(3) +"," +
                 "" + dane.get(4) +")";
 
-        try {
-            db.establishConnection();
-            db.executeUpdate(query);
-            System.out.println("Executed: " + query);
-            db.closeConnection();
-        } catch (ConnectExpection connectExpection) {
-            connectExpection.printStackTrace();
-            return false;
-        } catch (QueryException e) {
-            e.printStackTrace();
-            return false;
-        }
+        SafeDAO.update(query);
         return true;
 	 }
 }

@@ -1,5 +1,8 @@
 package controler;
 
+import db.ConnectExpection;
+import db.dbDAO;
+
 public class ControlerOkien {
 
 	private IControlerOknoLogowania oknoLogowania;
@@ -32,11 +35,12 @@ public class ControlerOkien {
 		oknoGlowne.run();
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ConnectExpection {
 
+        dbDAO.establishConnection();
 
 		ControlerOkien controler = new ControlerOkien();
-		controler.getOknoLogowania().run();		
+		controler.getOknoLogowania().run();
 	}
 
 }

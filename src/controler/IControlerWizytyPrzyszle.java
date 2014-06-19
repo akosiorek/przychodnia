@@ -3,6 +3,7 @@ package controler;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import gui.WizytyPrzyszle;
 
@@ -12,9 +13,11 @@ public abstract class IControlerWizytyPrzyszle {
 	
 	IControlerWizytyPrzyszle(WizytyPrzyszle wizytyPrzyszle){
 		m_wizytyPrzyszle = wizytyPrzyszle;
+
+        addUsunWizyteActionListener();
 	}
 	
-	public void setListaWizyt(ArrayList<String> lista){
+	public void setListaWizyt(List<String> lista){
 		m_wizytyPrzyszle.getListaWizytModel().removeAllElements();
 		for (String elem : lista)
 			m_wizytyPrzyszle.getListaWizytModel().addElement(elem);

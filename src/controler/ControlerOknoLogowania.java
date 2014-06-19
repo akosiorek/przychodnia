@@ -2,6 +2,7 @@ package controler;
 
 import db.ConnectExpection;
 import db.QueryException;
+import db.SafeDAO;
 import db.dbDAO;
 import org.joda.time.DateTime;
 
@@ -16,7 +17,6 @@ public class ControlerOknoLogowania extends IControlerOknoLogowania {
     private static final String CONFIG_FILE = "resources//placowka.properties";
     private static final String ID_KEY = "ID";
     private static int ID;
-    private static final dbDAO db = new dbDAO();
 
     private String nazwa;
     private String nrTelefonu;
@@ -52,32 +52,13 @@ public class ControlerOknoLogowania extends IControlerOknoLogowania {
         String nameQuery = "SELECT nazwa, nr_tel, adres FROM placowka WHERE id = " + Integer.toString(ID);
         String daysQuery = "SELECT dzien_tyg, od, do FROM godziny_przyjec WHERE placowka_id = " + Integer.toString(ID);
 
-        List<String[]> params = null;
         days = new TreeMap<String, Hours>();
-        ResultSet daysResult = null;
-        try {
-            db.establishConnection();
-            params = db.executeQueryList(nameQuery);
-            daysResult = db.executeQuery(daysQuery);
+        List<String[]> params = SafeDAO.select(nameQuery);
+        List<String[]> daysResult = SafeDAO.select(daysQuery);
 
-            try {
-                while(daysResult.next()) {
-                    String day = intToDayMap.get(daysResult.getInt(1));
-                    String from = daysResult.getString(2);
-                    String to = daysResult.getString(3);
-                    days.put(day, new Hours(from, to));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            db.closeConnection();
-        } catch (QueryException e) {
-            e.printStackTrace();
-        } catch (ConnectExpection connectExpection) {
-            connectExpection.printStackTrace();
+        for(String[] day : daysResult) {
+            days.put(intToDayMap.get(Integer.valueOf(day[0])), new Hours(day[1], day[2]));
         }
-
 
         if(params.isEmpty()) {
             nazwa = nrTelefonu = adres = "BRAK WARTOŚCI";

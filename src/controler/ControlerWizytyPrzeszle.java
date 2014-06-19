@@ -1,7 +1,7 @@
 package controler;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import gui.WizytyPrzeszle;
 
@@ -9,13 +9,11 @@ public class ControlerWizytyPrzeszle extends IControlerWizytyPrzeszle {
 
 	ControlerWizytyPrzeszle(WizytyPrzeszle wizytyPrzeszle) {
 		super(wizytyPrzeszle);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public ArrayList<String> checkWizyty(Date dataOd, Date dataDo, String pesel) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> checkWizyty(Date dataOd, Date dataDo, String pesel) {
+        return QueryManager.findWizyty(pesel, new java.sql.Date(dataDo.getTime()), "<");
 	}
 
 }

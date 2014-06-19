@@ -2,6 +2,7 @@ package controler;
 
 import db.ConnectExpection;
 import db.QueryException;
+import db.SafeDAO;
 import db.dbDAO;
 import gui.Pacjent;
 
@@ -14,8 +15,6 @@ import java.util.*;
  */
 public class ControlerPacjenta extends IControlerPacjent {
 
-    private static final dbDAO db = new dbDAO();
-
     ControlerPacjenta(Pacjent pacjentWindow) {
         super(pacjentWindow);
     }
@@ -23,48 +22,10 @@ public class ControlerPacjenta extends IControlerPacjent {
     @Override
     public MPair<Integer, HashMap<String, String>> checkDanePacjenta(String key, String value) {
 
-        MPair<Integer, HashMap<String, String>> pair = new  MPair<Integer, HashMap<String, String>>();
-
-        String sep = key.compareToIgnoreCase("pesel") == 0 ? "'" : "";
-        String query = "SELECT imie, imie2, nazwisko, pesel, nr_tel, pakiet_id FROM pacjent where " +
-                key + " = " + sep + value + sep;
-
-        List<String[]> result = null;
-        try {
-            db.establishConnection();
-            result = db.executeQueryList(query);
-            db.closeConnection();
-        } catch (QueryException e) {
-            e.printStackTrace();
-        } catch (ConnectExpection connectExpection) {
-            connectExpection.printStackTrace();
-        }
-
-        pair.first = result.size();
+        MPair<Integer, HashMap<String, String>> pair = QueryManager.findPacjent(key, value);
         if(pair.first != 1) return pair;
 
-        String[] values = result.get(0);
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("IMIE", values[0]);
-        map.put("DRUGIE_IMIE", values[1]);
-        map.put("NAZWISKO", values[2]);
-        map.put("PESEL", values[3]);
-        map.put("TELEFON", values[4]);
-
-        String pakietId = values[5];
-        query = "SELECT nazwa FROM pakiet WHERE id = " + pakietId;
-        try {
-            db.establishConnection();
-            result = db.executeQueryList(query);
-            db.closeConnection();
-        } catch (QueryException e) {
-            e.printStackTrace();
-        } catch (ConnectExpection connectExpection) {
-            connectExpection.printStackTrace();
-        }
-        map.put("PAKIET", result.get(0)[0]);
-
-        pair.second = map;
+        pair.second.put("PAKIET", QueryManager.pakietIdToName(pair.second.get("PAKIET_ID")));
         return pair;
     }
 
@@ -72,21 +33,10 @@ public class ControlerPacjenta extends IControlerPacjent {
     public ArrayList<String> readPakiety() {
         ArrayList<String> pakiety = new ArrayList<String>();
         String query = "SELECT nazwa FROM pakiet";
-        try {
-            db.establishConnection();
-            ResultSet rs = db.executeQuery(query);
-            while(rs.next()) {
-                pakiety.add(rs.getString(1));
-            }
-            db.closeConnection();
-        } catch (ConnectExpection connectExpection) {
-            connectExpection.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (QueryException e) {
-            e.printStackTrace();
+        List<String[]> results = SafeDAO.select(query);
+        for(String[] result : results) {
+            pakiety.add(result[0]);
         }
-
         return pakiety;
     }
 
@@ -94,22 +44,14 @@ public class ControlerPacjenta extends IControlerPacjent {
     public void removePacjent(String pesel) {
 
         String query = "DELETE FROM pacjent WHERE pesel = " + pesel;
-        try {
-            db.establishConnection();
-            db.executeUpdate(query);
-            db.closeConnection();
-        } catch (QueryException e) {
-            e.printStackTrace();
-        } catch (ConnectExpection connectExpection) {
-            connectExpection.printStackTrace();
-        }
+        SafeDAO.update(query);
     }
 
     @Override
     public void updateDanePacjenta(HashMap<String, String> danePacjenta, String pesel) {
 
         StringBuilder builder = new StringBuilder();
-        builder.append("UPDATE TABLE pacjent SET");
+        builder.append("UPDATE pacjent SET");
         Iterator it = danePacjenta.entrySet().iterator();
         while(it.hasNext()) {
 
@@ -131,30 +73,16 @@ public class ControlerPacjenta extends IControlerPacjent {
         builder.append("WHERE pesel = ");
         builder.append(pesel);
 
-        try {
-            db.establishConnection();
-            db.executeUpdate(builder.toString());
-            db.closeConnection();
-        } catch (QueryException e) {
-            e.printStackTrace();
-        } catch (ConnectExpection connectExpection) {
-            connectExpection.printStackTrace();
-        }
+        SafeDAO.update(builder.toString());
     }
 
     @Override
     public void updatePakietPacjenta(String pakietPacjenta, String pesel) {
 
-        String query = "UPDATE TABLE pacjent SET pakiet_id = " + pakietPacjenta
-                + " WHERE pesel = " + pesel;
-        try {
-            db.establishConnection();
-            db.executeUpdate(query);
-            db.closeConnection();
-        } catch (QueryException e) {
-            e.printStackTrace();
-        } catch (ConnectExpection connectExpection) {
-            connectExpection.printStackTrace();
-        }
+        String query = "UPDATE pacjent SET pakiet_id = (SELECT id FROM pakiet WHERE nazwa = '" +
+                pakietPacjenta + "') WHERE pesel = " + pesel;
+
+        SafeDAO.update(query);
     }
 }
+

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import gui.WizytyPrzeszle;
 
@@ -28,7 +29,7 @@ public abstract class IControlerWizytyPrzeszle {
 		m_wizytyPrzeszle = wizytyPrzeszle;
 	}
 	
-	public void setListaWizyt(ArrayList<String> lista){
+	public void setListaWizyt(List<String> lista){
 		String text = m_wizytyPrzeszle.getWizyty().getText();
 		for (String elem : lista)
 			text = "\n" + elem;
@@ -37,7 +38,7 @@ public abstract class IControlerWizytyPrzeszle {
 	}
 	
 
-	abstract public ArrayList<String> checkWizyty(Date dataOd, Date dataDo,String pesel) ;
+	abstract public List<String> checkWizyty(Date dataOd, Date dataDo, String pesel) ;
 	
 	public void addWyszukajWizyteActionListener(){
 		m_wizytyPrzeszle.getBtnWyszukaj().addActionListener(new ActionListener(){

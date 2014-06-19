@@ -30,6 +30,12 @@ public abstract class IControlerRezerwacja {
 		m_rezerwacjaWindow = rezerwacjaWindow;
 		controlerDanePacjenta = new ControlerDanePacjenta(m_rezerwacjaWindow.getDanePacjenta());
 		controlerOknoWizyty = new ControlerOknoWizyty();
+
+        initSpecjalisci();
+        initUslugi();
+        addUtworzWizyteActionListener();
+        addWyszukajLekarzyActionListener();
+        addWyszukajActionListener();
 	}
 	
 	public void addWyszukajActionListener(){
@@ -54,19 +60,19 @@ public abstract class IControlerRezerwacja {
 	
 	
 	public void addUtworzWizyteActionListener(){
-		m_rezerwacjaWindow.getWyszukajLekarza().addActionListener(new ActionListener(){
+		m_rezerwacjaWindow.getUtworzWizyte().addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				HashMap<String,String> wizyta = utworzWizyte();
-				if(wizyta != null)
-					controlerOknoWizyty.createOknoWizyty(wizyta);
-			}
-		});
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                HashMap<String, String> wizyta = utworzWizyte();
+                if (wizyta != null)
+                    controlerOknoWizyty.createOknoWizyty(wizyta);
+            }
+        });
 	}
 		
 	public void findPacjent(){
-		String key = m_rezerwacjaWindow.getWyszukajBox().toString();
+		String key = m_rezerwacjaWindow.getWyszukajBox().getSelectedItem().toString();
 		String value = m_rezerwacjaWindow.getValueField().getText();
 		MPair<Integer,HashMap<String,String>> pacjent = checkDanePacjenta(key,value);
 		
@@ -85,7 +91,7 @@ public abstract class IControlerRezerwacja {
 	}
 	
 	public void initSpecjalisci(){
-		ArrayList<String> uslugi = readUslugi();
+		ArrayList<String> uslugi = readSpecjalisci();
 		for( int i = 0; i < uslugi.size(); ++i)
 			m_rezerwacjaWindow.getListaSpecjalistow().addElement(uslugi.get(i));
 	}
@@ -95,8 +101,11 @@ public abstract class IControlerRezerwacja {
 		String specjalizacja = m_rezerwacjaWindow.getSpecjalisci().getSelectedValue();
 		ArrayList<String> lekarze = znajdzLekarzy(data,specjalizacja);
 		m_rezerwacjaWindow.getListaLekarzy().removeAllElements();
-		for( int i = 0; i < lekarze.size(); ++i)
-			m_rezerwacjaWindow.getListaLekarzy().addElement(lekarze.get(i));
+		for( int i = 0; i < lekarze.size(); ++i) {
+            m_rezerwacjaWindow.getListaLekarzy().addElement(lekarze.get(i));
+        }
+        
+        m_rezerwacjaWindow.repaint();
 	}
 	
 	public HashMap<String,String> utworzWizyte(){

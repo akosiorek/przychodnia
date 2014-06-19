@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class IControlerHistoria {
 		
@@ -19,6 +20,8 @@ public abstract class IControlerHistoria {
 		controlerDanePacjenta = new ControlerDanePacjenta(m_historyWindow.getDanePacjenta());
 		controlerWizytyPrzyszle = new ControlerWizytyPrzyszle(m_historyWindow.getWizytyPrzyszle());
 		controlerWizytyPrzeszle = new ControlerWizytyPrzeszle(m_historyWindow.getWizytyPrzeszle());
+
+        addWyszukajActionListener();
 	}
 	
 	public void addWyszukajActionListener(){
@@ -32,7 +35,7 @@ public abstract class IControlerHistoria {
 	}
 	
 	public void findPacjent(){
-		String key = m_historyWindow.getWyszukajBox().toString();
+		String key = m_historyWindow.getWyszukajBox().getSelectedItem().toString();
 		String value = m_historyWindow.getValueField().getText();
 		MPair<Integer,HashMap<String,String>> pacjent = checkDanePacjenta(key,value);
 		
@@ -49,5 +52,5 @@ public abstract class IControlerHistoria {
 	}
 	
 	abstract public MPair<Integer,HashMap<String,String> > checkDanePacjenta(String key,String value);
-	abstract public ArrayList<String> findWizytyPrzyszle(String pesel);
+	abstract public List<String> findWizytyPrzyszle(String pesel);
 }
