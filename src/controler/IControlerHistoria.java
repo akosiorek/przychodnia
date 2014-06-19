@@ -21,6 +21,7 @@ public abstract class IControlerHistoria {
 		controlerWizytyPrzyszle = new ControlerWizytyPrzyszle(m_historyWindow.getWizytyPrzyszle());
 		controlerWizytyPrzeszle = new ControlerWizytyPrzeszle(m_historyWindow.getWizytyPrzeszle());
 
+        m_historyWindow.getValueField().setText("91022806116");
         addWyszukajActionListener();
 	}
 	

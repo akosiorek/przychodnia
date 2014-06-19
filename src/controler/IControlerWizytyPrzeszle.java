@@ -27,6 +27,7 @@ public abstract class IControlerWizytyPrzeszle {
 
 	IControlerWizytyPrzeszle(WizytyPrzeszle wizytyPrzeszle){
 		m_wizytyPrzeszle = wizytyPrzeszle;
+        addWyszukajWizyteActionListener();
 	}
 	
 	public void setListaWizyt(List<String> lista){
@@ -46,7 +47,7 @@ public abstract class IControlerWizytyPrzeszle {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(CheckPacjent.checkPesel(pesel))
-					setListaWizyt(checkWizyty(m_wizytyPrzeszle.getDataOd().getDate(),m_wizytyPrzeszle.getDataOd().getDate(),pesel));
+					setListaWizyt(checkWizyty(m_wizytyPrzeszle.getDataOd().getDate(),m_wizytyPrzeszle.getDataDo().getDate(),pesel));
 			}
 		
 		});

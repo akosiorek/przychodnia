@@ -13,7 +13,7 @@ public class ControlerWizytyPrzeszle extends IControlerWizytyPrzeszle {
 
 	@Override
 	public List<String> checkWizyty(Date dataOd, Date dataDo, String pesel) {
-        return QueryManager.findWizyty(pesel, new java.sql.Date(dataDo.getTime()), "<");
+        return QueryManager.findWizyty(pesel, new java.sql.Date(dataOd.getTime()), new java.sql.Date(dataDo.getTime()));
 	}
 
 }
