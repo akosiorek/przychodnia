@@ -22,7 +22,6 @@ public class ControlerRezerwacja extends IControlerRezerwacja{
 
         long dateInSeconds = data.getTime();
         String thisDay =  new java.sql.Date(dateInSeconds).toString();
-        String thatDay =  new java.sql.Date(dateInSeconds + 86400000).toString();
         String query = "SELECT lekarz.imie, lekarz.nazwisko FROM lekarz JOIN spec_lek ON spec_lek.lekarz_id = lekarz.id JOIN specjalizacja ON spec_lek.specjalizacja_id = specjalizacja.id JOIN terminarz ON lekarz.id = terminarz.lekarz_id"
         + " where specjalizacja.nazwa = '" + specjalizacja + "' and terminarz.termin = DATE '" + thisDay + "'";
         List<String[]> results = SafeDAO.select(query);

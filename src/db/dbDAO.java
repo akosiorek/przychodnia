@@ -171,4 +171,37 @@ public class dbDAO {
             super.finalize();
         }
     }
+
+
+    public static void startTransaction() {
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void enableAutoCommit() throws SQLException {
+        connection.setAutoCommit(true);
+    }
+
+    public static void commit() {
+
+        try {
+            connection.commit();
+            enableAutoCommit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void rollback() {
+
+        try {
+            connection.rollback();
+            enableAutoCommit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

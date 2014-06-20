@@ -71,7 +71,6 @@ public class QueryManager {
 
         String query = wizytyQuery(pesel) + wizytyDoubleDateCond(dataOd, dataDo);
         return selectWizyty(query);
-
     }
 
     static private String wizytyQuery(String pesel) {

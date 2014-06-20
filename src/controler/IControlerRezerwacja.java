@@ -116,7 +116,7 @@ public abstract class IControlerRezerwacja {
 			m_rezerwacjaWindow.getErrorField().setText("Nieprawidlowa wartosc kosztu");
 			return null;
 		}
-		wizyta.put("TERMIN", m_rezerwacjaWindow.getKalendarzLekarza().getDate().toString());
+		wizyta.put("TERMIN", new java.sql.Date(m_rezerwacjaWindow.getKalendarzLekarza().getDate().getTime()).toString());
 		wizyta.put("LEKARZ", m_rezerwacjaWindow.getLekarze().getSelectedValue());
 		wizyta.put("IMIE",  m_rezerwacjaWindow.getDanePacjenta().getImie().getText());
 		wizyta.put("NAZWISKO",  m_rezerwacjaWindow.getDanePacjenta().getNazwisko().getText());
